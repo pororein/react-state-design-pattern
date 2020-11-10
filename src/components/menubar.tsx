@@ -13,34 +13,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import TelegramIcon from '@material-ui/icons/Telegram';
-import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
-import PeopleAlt from "@material-ui/icons/PeopleAlt";
-import ExitToApp from "@material-ui/icons/ExitToApp";
-import PlaylistAdd from "@material-ui/icons/PlaylistAdd";
-import PeopleOutline from "@material-ui/icons/PeopleOutline";
-import { Route, Switch } from "react-router-dom";
-import ConsoleContents from './consoleContents';
+import Button from '@material-ui/core/Button';
+import ComponentsSelector from './componentsSelector';
+import { useHistory } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 type MenuItem = {
   text: string,
-  icon: JSX.Element,
+  icon?: JSX.Element,
   action: () => void,  
-};
-
-export type Props = {
-  showUserList: () => void,
-  createReviewRequest: () => void,
-  showReviewList: () => void,
-  showProjectList: () => void,
-  createCheckList: () => void,
-  showCheckList: () => void,
-  logout: () => void,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -100,45 +83,39 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
   
-  export default function menubar(props: Props) {
+  export default function menubar() {
     const classes = useStyles();
     const theme = useTheme();
+    const history = useHistory();
 
     const listItems: MenuItem[] = [
       {
-        text: 'Users',
-        icon: <PeopleAlt />,
-        action: props.showUserList,
+        text: 'Class Components',
+        action: () => { history.push('/ClassComponents') },
       },
       {
-        text: 'Create Review',
-        icon: <TelegramIcon />,
-        action: props.createReviewRequest,
+        text: 'Hooks',
+        action: () => history.push('/Hooks'),
       },
       {
-        text: 'Show Reviews',
-        icon: <DynamicFeedIcon />,
-        action: props.showReviewList,
+        text: 'Redux',
+        action: () => history.push('/Redux/Normal'),
       },
       {
-        text: 'Show Projects',
-        icon: <PeopleOutline />,
-        action: props.showProjectList,
+        text: 'Re`ducks',
+        action: () => history.push('/Redux/Re`ducks'),
       },
       {
-        text: 'Create Check List',
-        icon: <PlaylistAdd />,
-        action: props.createCheckList,
+        text: 'Re-ducks',
+        action: () => history.push('/Redux/Re-ducks'),
       },
       {
-        text: 'Show Check Lists',
-        icon: <ListAltIcon />,
-        action: props.showCheckList,
+        text: 'Redux-Toolkit',
+        action: () => history.push('/Redux/Toolkit'),
       },
       {
-        text: 'Logout',
-        icon: <ExitToApp />,
-        action: props.logout,
+        text: 'Recoil',
+        action: () => history.push('/Recoil'),
       },
     ];
 
@@ -151,6 +128,10 @@ const useStyles = makeStyles((theme) => ({
     const handleDrawerClose = () => {
       setOpen(false);
     };
+
+    const viewRoot = () => {
+        history.push('/');
+    }
   
     return (
       <div className={classes.root}>
@@ -171,9 +152,7 @@ const useStyles = makeStyles((theme) => ({
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Console
-            </Typography>
+            <Button color="inherit" onClick={() => {viewRoot()}}> Go Root</Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -194,9 +173,6 @@ const useStyles = makeStyles((theme) => ({
           <List>
             {listItems.map((item, index) => (
               <ListItem button key={item.text} onClick={item.action}>
-                    <ListItemIcon>
-                        {item.icon}
-                    </ListItemIcon>
                 <ListItemText primary={item.text} />
               </ListItem>
             ))}
@@ -208,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
           })}
         >
           <div className={classes.drawerHeader} />
-          <ConsoleContents />
+          <ComponentsSelector />
         </main>
       </div>
     );
