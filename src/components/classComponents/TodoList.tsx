@@ -43,35 +43,63 @@ export default class TodoList extends React.Component<None, TodoItemState> {
     }
     add(): void {
         let nextId = this.state.todoList.length;
-
+        let todoListCopy = this.state.todoList.slice();
+        if(todoListCopy.length > 1) {
+            todoListCopy.sort((item1, item2) => {
+                if( item1.id < item2.id ) return -1;
+                if( item1.id > item2.id ) return 1;
+                return 0;
+            });
+            nextId = todoListCopy[todoListCopy.length - 1].id + 1;
+        }
         let newTodoItem: TodoItem = {
             id: nextId,
             title: '',
             compleated: false,
         }
 
-        let todoListCopy = this.state.todoList.slice();
         todoListCopy.push(newTodoItem);
 
         this.setState({ todoList: todoListCopy });
     }
     delete(id: number) {
-        let todoListCopy = this.state.todoList.slice(id, 1);
+        let todoListCopy = this.state.todoList.slice();
+        todoListCopy.map((item, index) => {
+            if(item.id == id) {
+                todoListCopy.splice(index, 1);
+                return;
+            }
+        });
         this.setState({ todoList: todoListCopy });
     }
     updateTitle(id: number, updateText: string) {
         let todoListCopy = this.state.todoList.slice();
-        todoListCopy[id].title = updateText;
+        todoListCopy.map((item, index) => {
+            if(item.id == id) {
+                item.title = updateText;
+                return;
+            }
+        });
         this.setState({ todoList: todoListCopy });
     }
     done(id: number) {
         let todoListCopy = this.state.todoList.slice();
-        todoListCopy[id].compleated = true;
+        todoListCopy.map((item, index) => {
+            if(item.id == id) {
+                item.compleated = true;
+                return;
+            }
+        });
         this.setState({ todoList: todoListCopy });
     }
     cancell(id: number) {
         let todoListCopy = this.state.todoList.slice();
-        todoListCopy[id].compleated = false;
+        todoListCopy.map((item, index) => {
+            if(item.id == id) {
+                item.compleated = false;
+                return;
+            }
+        });
         this.setState({ todoList: todoListCopy });
     }
 

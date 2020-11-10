@@ -34,6 +34,7 @@ export default class TodoFilter extends React.Component<TodoFilterProps, TodoFil
 
     private createTodoCard(item: TodoItem, props: TodoFilterProps): JSX.Element {
         return <TodoCard 
+                    key={item.id}
                     todoItem={item}
                     updateTitle={(id: number, updateText: string) => {props.updateTitle(id, updateText)} }
                     done={(id: number) => {props.done(id)} } 
