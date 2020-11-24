@@ -1,7 +1,8 @@
 import { Action } from 'typescript-fsa';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import todoListAction from '../state/actions/TodoList';
+import { AppState } from '../state/store';
+import { todoListActions } from '../state/modules/TodoList';
 import TodoItemAddButton from '../components/TodoItemAddButton';
 
 export interface TodoListActions {
@@ -11,7 +12,7 @@ export interface TodoListActions {
 function mapDispatchToProps(dispatch: Dispatch<Action<void>>) {
     return {
         add: () => 
-            dispatch(todoListAction.add()),
+            dispatch(todoListActions.add()),
     };
 }
 

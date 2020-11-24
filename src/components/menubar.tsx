@@ -102,8 +102,8 @@ const useStyles = makeStyles((theme) => ({
         action: () => history.push('/Redux/Normal'),
       },
       {
-        text: 'Re`ducks',
-        action: () => history.push('/Redux/Re`ducks'),
+        text: 'ReDucks',
+        action: () => history.push('/Redux/Ducks'),
       },
       {
         text: 'Re-ducks',

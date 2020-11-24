@@ -1,5 +1,5 @@
 import React from 'react';
-import { TodoItem } from '../state/reducers/TodoList';
+import { TodoItem } from '../state/modules/TodoList';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
