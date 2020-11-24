@@ -13,42 +13,38 @@ const todoListSlice = createSlice({
     initialState: initialState,
     reducers: {
         done: (state, action: PayloadAction<{id: number}>) => {
-            let copyTodoList = state.slice();
             let targetTodoItemIndex = 
-                copyTodoList.findIndex(todoItem => todoItem.id == action.payload.id);
-            copyTodoList[targetTodoItemIndex].compleated = true;
-            return Object.assign([], state, copyTodoList );
+                state.findIndex(todoItem => todoItem.id == action.payload.id);
+            state[targetTodoItemIndex].compleated = true;
+            return state;
         },
         cancell: (state, action: PayloadAction<{id: number}>) => {
-            let copyTodoList = state.slice();
             let targetTodoItemIndex = 
-                copyTodoList.findIndex(todoItem => todoItem.id == action.payload.id);
-            copyTodoList[targetTodoItemIndex].compleated = false;
-            return Object.assign([], state, copyTodoList);
+                state.findIndex(todoItem => todoItem.id == action.payload.id);
+            state[targetTodoItemIndex].compleated = false;
+            return state;
         },
         updateTitle:  (state, action: PayloadAction<{id: number, title: string}>) => {
-            let copyTodoList = state.slice();
             let targetTodoItemIndex = 
-                copyTodoList.findIndex(todoItem => todoItem.id == action.payload.id);
-            copyTodoList[targetTodoItemIndex].title = action.payload.title;
-            return Object.assign([], state, copyTodoList);
+                state.findIndex(todoItem => todoItem.id == action.payload.id);
+            state[targetTodoItemIndex].title = action.payload.title;
+            return state;
         },
         delete: (state, action: PayloadAction<{id: number}>) => {
-            let copyTodoList = state.slice();
             let targetTodoItemIndex = 
-                copyTodoList.findIndex(todoItem => todoItem.id == action.payload.id);
-            copyTodoList.splice(targetTodoItemIndex, 1);
+                state.findIndex(todoItem => todoItem.id == action.payload.id);
+            state.splice(targetTodoItemIndex, 1);
+            return state;
         },
         add: (state) => {
             let nextId = state.length;
-            let copyTodoList = state.slice();
-            if(copyTodoList.length > 1) {
-                copyTodoList.sort((item1, item2) => {
+            if(state.length > 1) {
+                state.sort((item1, item2) => {
                     if( item1.id < item2.id ) return -1;
                     if( item1.id > item2.id ) return 1;
                     return 0;
                 });
-                nextId = copyTodoList[copyTodoList.length - 1].id + 1;
+                nextId = state[state.length - 1].id + 1;
             }
             let newTodoItem: TodoItem = {
                 id: nextId,
@@ -56,9 +52,9 @@ const todoListSlice = createSlice({
                 compleated: false,
             }
 
-            copyTodoList.push(newTodoItem);
+            state.push(newTodoItem);
 
-            return Object.assign([], state, copyTodoList);
+            return state;
         },
     }
 });
