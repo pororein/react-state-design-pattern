@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { AppState } from '../state/store';
 import { todoFilterActions, getFilter } from '../state/ducks/TodoFilter';
 import TodoFilter, { TodoFilterProps } from '../components/TodoFilter';
-import { TodoItem } from '../state/ducks/TodoList';
 
 export interface TodoFilterActions {
     changeFilter: (checked: boolean) => Action<boolean>
