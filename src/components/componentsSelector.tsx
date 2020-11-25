@@ -6,6 +6,7 @@ import ReduxNormalApp from './redux/App';
 import ReduxDucksPatternApp from './ducks/App';
 import ReduxReDucksPatternApp from './re-ducks/App';
 import ReduxToolKitApp from './redux-toolkit/App';
+import RecoilApp from './recoil/App';
 
 export default function consoleContents() {
     return (
@@ -17,6 +18,7 @@ export default function consoleContents() {
                 <Route exact path="/Redux/Ducks" component={ReduxDucksPatternApp} />
                 <Route exact path="/Redux/Re-ducks" component={ReduxReDucksPatternApp} />
                 <Route exact path="/Redux/Toolkit" component={ReduxToolKitApp} />
+                <Route exact path="/Recoil" component={RecoilApp} />
             </Switch>
         </React.Fragment>
     );

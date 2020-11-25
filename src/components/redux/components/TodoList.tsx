@@ -1,12 +1,5 @@
 import React from 'react';
 import { TodoItem } from '../state/reducers/TodoList';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
-import CheckBox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import { Dispatch } from 'redux';
-import todoListAction from '../state/actions/TodoList';
 import TodoCard from '../components/TodoCard';
 
 export interface TodoListProps {

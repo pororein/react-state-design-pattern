@@ -1,18 +1,27 @@
 import React from 'react';
-import { TodoFilterState } from '../state/reducers/TodoFilter';
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { atom, useRecoilState } from 'recoil';
 
-export interface TodoFilterProps {
-    filter: TodoFilterState
-    changeFilter?: (checked: boolean) => void
-    changeFilterMode?: (checked: boolean) => void
-}
+export const todoFilterEnabledState = atom({
+    key: 'todoFilterState',
+    default: false
+});
 
-export default function TodoFilter(props: TodoFilterProps) {
+export const todoFilterModeDoneState = atom({
+    key: 'todoFilterModeDoneState',
+    default: false
+});
+
+export default function TodoFilter() {
+    const [todoFilterEnabled, setTodoFilterEnabled] = 
+        useRecoilState(todoFilterEnabledState);
+    const [todoFilterModeDone, setTodoFilterModeDone] = 
+        useRecoilState(todoFilterModeDoneState);
+
     return (
         <Container>
             <FormControl component="fieldset">
@@ -20,8 +29,8 @@ export default function TodoFilter(props: TodoFilterProps) {
                     <FormControlLabel
                         control={
                             <Switch
-                                checked={props.filter.filterEnabled}
-                                onChange={(event) => { props.changeFilter!(event.target.checked) }}
+                                checked={todoFilterEnabled}
+                                onChange={(event) => { setTodoFilterEnabled(event.target.checked) }}
                                 name="enabled"
                             />}
                         label="Filter Enabled"
@@ -29,8 +38,8 @@ export default function TodoFilter(props: TodoFilterProps) {
                     <FormControlLabel
                         control={
                             <Switch
-                                checked={props.filter.filterModeDone}
-                                onChange={(event) => { props.changeFilterMode!(event.target.checked) }}
+                                checked={todoFilterModeDone}
+                                onChange={(event) => { setTodoFilterModeDone(event.target.checked) }}
                                 name="fileterMode"
                             />}
                         label="Compleated View"
