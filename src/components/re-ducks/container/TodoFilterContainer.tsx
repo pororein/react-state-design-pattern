@@ -3,7 +3,7 @@ import { Action } from 'typescript-fsa';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppState } from '../state/store';
-import { todoFilterActions } from '../state/ducks/TodoFilter';
+import { todoFilterActions, getFilter } from '../state/ducks/TodoFilter';
 import TodoFilter, { TodoFilterProps } from '../components/TodoFilter';
 import { TodoItem } from '../state/ducks/TodoList';
 
@@ -21,22 +21,8 @@ function mapDispatchToProps(dispatch: Dispatch<Action<boolean>>) {
     };
 }
 
-function mapStateToProps(appState: AppState) {
-    let todoList = 
-        appState.filter.filterEnabled?
-            filter(appState.todoList, 
-                appState.filter.filterModeDone):
-            appState.todoList;
-    
-    let todoFilterProps: TodoFilterProps = {
-        filter: Object.assign({}, appState.filter)
-    }
-    
-    return todoFilterProps;
-}
-
-function filter(todoList: TodoItem[], filterModeDone: boolean): TodoItem[] {    
-    return todoList.filter((item) => item.compleated == filterModeDone);
+function mapStateToProps(appState: AppState) {    
+    return {filter: getFilter(appState)};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoFilter);

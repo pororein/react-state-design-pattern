@@ -1,7 +1,7 @@
 import todoListActions from './actions';
 import todoListReducers from './reducers';
 import todoListOperations from './operations';
-import { getTodoList } from './selectors';
+import { getTodoList, getFilterdList } from './selectors';
 import { TodoItem } from './types';
 
 export {
@@ -9,6 +9,7 @@ export {
     todoListOperations,
     TodoItem,
     getTodoList,
+    getFilterdList,
 }
 
 export default todoListReducers;

@@ -1,9 +1,9 @@
 import { createSelector } from "reselect";
 import { AppState } from '../../store';
 
-const usersSelector = (state: AppState) => state.filter;
+const todoFilterSelector = (state: AppState) => state.filter;
 
 export const getFilter = createSelector(
-    [usersSelector],
+    [todoFilterSelector],
     state => state
 );

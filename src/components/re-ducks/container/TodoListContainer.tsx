@@ -2,7 +2,7 @@ import { Action } from 'typescript-fsa';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppState } from '../state/store';
-import { todoListActions } from '../state/ducks/TodoList';
+import { todoListActions, getFilterdList } from '../state/ducks/TodoList';
 import { TodoItem } from '../state/ducks/TodoList';
 import TodoList, { TodoListProps } from '../components/TodoList';
 
@@ -27,17 +27,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<{id: number, title?: strin
 }
 
 function mapStateToProps(appState: AppState, props: TodoListProps) {
-    let todoList = 
-        appState.filter.filterEnabled?
-            filter(appState.todoList, 
-                appState.filter.filterModeDone):
-            appState.todoList;
-
-    return { todoList: todoList };
-}
-
-function filter(todoList: TodoItem[], filterModeDone: boolean): TodoItem[] {    
-    return todoList.filter((item) => item.compleated == filterModeDone);
+    return { todoList: getFilterdList(appState) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
